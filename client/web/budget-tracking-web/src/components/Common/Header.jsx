@@ -5,7 +5,7 @@ import { IoCalendar } from "react-icons/io5";
 import { IoPieChart } from "react-icons/io5";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
-import { getIconByLabel, getNotLoggedInIconByLabel } from "../../helpers/IconHelper";
+import { getIconByLabel, getNotLoggedInIconByLabel, getRouteByLabel } from "../../helpers/IconHelper";
 import { menuItems, notLoggedInMenuItems } from "../../constants/IconConstants";
 import { useNavigate } from "react-router-dom";
 
@@ -72,6 +72,7 @@ const Header = () => {
                     <div
                       style={{ cursor: "pointer" }}
                       className="flex items-center my-2 p-2 hover:bg-black hover:rounded"
+                      onClick={() => navigate(getRouteByLabel(item.label))}
                     >
                       <span className="mx-3">{getNotLoggedInIconByLabel(item.label)}</span>
                       <span className="text-fuchsia-50">{item.label}</span>

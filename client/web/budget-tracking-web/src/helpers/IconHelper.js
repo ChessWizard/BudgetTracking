@@ -33,5 +33,15 @@ const getNotLoggedInIconByLabel = (label) => {
             break;
     }
 }
+const getRouteByLabel = (label) => {
+  switch (label) {
+    case "Giriş Yap":
+        return "/login"
+    case "Üye Ol":
+        return "/register"
+    default:
+        break;
+}
+}
 
-export {getIconByLabel, getNotLoggedInIconByLabel}
+export {getIconByLabel, getNotLoggedInIconByLabel, getRouteByLabel}
