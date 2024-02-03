@@ -8,11 +8,15 @@ import { FaUser } from "react-icons/fa";
 import { getIconByLabel, getNotLoggedInIconByLabel, getRouteByLabel } from "../../helpers/IconHelper";
 import { menuItems, notLoggedInMenuItems } from "../../constants/IconConstants";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentToken } from "../../features/auth/authSlice";
 
 const Header = () => {
   const [isHamburgerMenuActive, setHamburgerMenuActive] = useState(false);
-  const token = "";
   const navigate = useNavigate()
+  var token = useSelector(selectCurrentToken);
+
+  console.log(token)
 
   const handleMenuClick = () => {
     setHamburgerMenuActive(!isHamburgerMenuActive);
@@ -34,7 +38,7 @@ const Header = () => {
             style={{cursor:"pointer"}}
           />
         </span>
-        {token === "" ? (
+        {token === null ? (
           <>
           <span className="hidden md:inline lg:inline">
               <div className="flex">
