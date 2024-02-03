@@ -1,0 +1,47 @@
+/*Default olarak web browser üzerinden gelen verileri sıfırlamak*/
+/*İsteklerimize uygun daha rahat tasarımlar yapmamıza yarar*/
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /*Tüm proje içeriğinde Google Rubik Fonts kullanılacağını family olarak belirtiyoruz*/
+  body{
+    font-family: "Rubik", sans-serif;
+    overflow-x: hidden;
+  }
+  
+  body, html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  /*Renk değerleri gibi sabit değerleri bir kere tanımlayıp birçok kez kullanalım*/
+  /*Bunlar birer değişne(variable) oldukları için kullanılırken var() metodu ile kullanılırlar*/
+  :root{
+    --blue-dark:#126173;
+    --blue-light:#4E9DA6;
+    --brown-light:#D9A679;
+    --brown-classic:#BF7449;
+    --brown-dark:#8C442A;
+  }
+  
+  a{
+    text-decoration: none;/*Bağlantı yazılarının altı çizili özelliği kaldırılsın*/
+    display: inline-block;/*Yalnızca sahip oldukları kadar alan kaplasınlar*/
+  }
+  
+  li{
+    list-style: none;
+  }
+  
+  button:focus{
+    outline: none;
+  }
+  
+  input:focus{
+    outline: none;
+  }
+  
+  
