@@ -3,15 +3,16 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { IoCalendar } from "react-icons/io5";
 import { IoPieChart } from "react-icons/io5";
-import { IoIosAddCircle } from "react-icons/io";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { getIconByLabel, getNotLoggedInIconByLabel } from "../../helpers/IconHelper";
 import { menuItems, notLoggedInMenuItems } from "../../constants/IconConstants";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isHamburgerMenuActive, setHamburgerMenuActive] = useState(false);
-  const token = "34564634";
+  const token = "";
+  const navigate = useNavigate()
 
   const handleMenuClick = () => {
     setHamburgerMenuActive(!isHamburgerMenuActive);
@@ -44,6 +45,7 @@ const Header = () => {
                 <div
                   style={{ color: "#f3796e", cursor: "pointer" }}
                   className="flex items-center ml-auto mr-3 bg-white p-3 rounded-xl font-bold"
+                  onClick={() => navigate("/login")}
                 >
                   <div className="mr-2">
                     <FaUser size={"20"} color="#f3796e" />
