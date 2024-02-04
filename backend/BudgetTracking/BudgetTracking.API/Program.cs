@@ -15,12 +15,43 @@ using BudgetTracking.Data.Configurations;
 using BudgetTracking.Service.Validators.User;
 using FluentValidation;
 using BudgetTracking.Service.Services.User.Commands.RegisterUser;
+using BudgetTracking.Data.ContextAccessor;
+using BudgetTracking.Core.ContextAccessor;
+using BudgetTracking.Data.Helpers;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    c => {
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "JWTToken_Auth_API",
+        Version = "v1"
+    });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+}); ;
 
 // UTC Problemlerini PostgreSQL için
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -35,6 +66,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddScoped<IUnitofWork, UnitofWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
+builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
 builder.Services.AddScoped<IValidator<RegisterUserCommand>, RegisterUserCommandValidator>();
 
 //builder.Services.Configure<TokenOptionConfigurations>(builder.Configuration.GetSection("TokenOptionConfigurations"));
@@ -56,25 +90,25 @@ builder.Services.AddIdentity<User, Role>(options =>
 }).AddEntityFrameworkStores<BudgetTrackingDbContext>()
     .AddDefaultTokenProviders();
 
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-//{
-//    var tokenOptions = builder.Configuration.GetSection("TokenOptionConfigurations").Get<TokenOptionConfigurations>();
-//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-//    {
-//        ValidateIssuer = false,
-//        ValidateAudience = false,
-//        ValidAudience = tokenOptions.Audiences[0],
-//        ValidIssuer = tokenOptions.Issuer,
-//        ValidateIssuerSigningKey = true,
-//        IssuerSigningKey = SignTokenHelper.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
-//        ClockSkew = TimeSpan.Zero,
-//        ValidateLifetime = true
-//    };
-//});
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    var tokenOptions = builder.Configuration.GetSection("TokenOptionConfigurations").Get<TokenOptionConfigurations>();
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidAudience = tokenOptions.Audiences[0],
+        ValidIssuer = tokenOptions.Issuer,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = SignTokenHelper.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
+        ClockSkew = TimeSpan.Zero,
+        ValidateLifetime = true
+    };
+});
 
 builder.Services.Configure<TokenOptionConfigurations>(builder.Configuration.GetSection("TokenOptionConfigurations"));
 
@@ -102,6 +136,7 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

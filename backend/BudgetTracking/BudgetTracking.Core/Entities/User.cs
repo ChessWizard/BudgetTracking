@@ -27,5 +27,8 @@ namespace BudgetTracking.Core.Entities
         public bool IsDeleted { get; set; }
 
         public ICollection<UserRefreshToken> UserRefreshToken { get; set; }
+
+        // bir kullanıcı birden fazla expense kategorisine sahip olabilir
+        public ICollection<Category> Categories { get; set; }
     }
 }

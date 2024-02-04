@@ -19,5 +19,10 @@ namespace BudgetTracking.Core.Entities
         public decimal Price { get; set; }
 
         public string Description { get; set; }
+
+        // bir expense yalnızca 1 kategoriye aittir
+        public Guid CategoryId { get; set; }
+
+        public Category Category { get; set; }
     }
 }

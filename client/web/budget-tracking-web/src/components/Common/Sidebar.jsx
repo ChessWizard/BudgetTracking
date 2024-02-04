@@ -38,7 +38,9 @@ const Sidebar = () => {
     return (
       <>
         <aside className="h-screen w-max">
-          <nav style={{backgroundColor:"#EF4444"}} className="h-full w-max flex flex-col items-start bg-white border border-solid border-[#64748b] shadow-lg">
+          <nav style={{backgroundColor:"#EF4444"}} className={`h-full w-max flex flex-col items-start bg-white border border-solid border-[#64748b] shadow-lg 
+          ${!isExpanded && "absolute"}
+          md:static lg:static`}>
             <div className="p-4 pb-2 pt-8 flex justify-around items-center w-max">
               <div
                 className={`flex overflow-hidden transition-all ${

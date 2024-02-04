@@ -3,6 +3,7 @@ using System;
 using BudgetTracking.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BudgetTracking.Data.Migrations
 {
     [DbContext(typeof(BudgetTrackingDbContext))]
-    partial class BudgetTrackingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240204170931_mig-1")]
+    partial class mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,9 +60,6 @@ namespace BudgetTracking.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
@@ -80,8 +80,6 @@ namespace BudgetTracking.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -349,19 +347,11 @@ namespace BudgetTracking.Data.Migrations
 
             modelBuilder.Entity("BudgetTracking.Core.Entities.Expense", b =>
                 {
-                    b.HasOne("BudgetTracking.Core.Entities.Category", "Category")
-                        .WithMany("Expenses")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BudgetTracking.Core.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });
@@ -426,11 +416,6 @@ namespace BudgetTracking.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BudgetTracking.Core.Entities.Category", b =>
-                {
-                    b.Navigation("Expenses");
                 });
 
             modelBuilder.Entity("BudgetTracking.Core.Entities.User", b =>
