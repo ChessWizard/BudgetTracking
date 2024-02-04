@@ -1,6 +1,6 @@
 ﻿using BudgetTracking.Common.Controller;
 using BudgetTracking.Service.Services.Authentication.Commands.UserLogin;
-using BudgetTracking.Service.Services.User.RegisterUser;
+using BudgetTracking.Service.Services.User.Commands.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

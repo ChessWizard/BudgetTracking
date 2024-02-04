@@ -156,7 +156,7 @@ const Register = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-full text-center mt-5 p-2 text-white font-semibold rounded-xl bg-[#f3796e]"
+                className="w-full text-center mt-5 p-2 text-white font-semibold rounded-xl bg-[#f3796e] hover:bg-[#EF3B3B]"
               >
                 Kayıt Ol
               </button>

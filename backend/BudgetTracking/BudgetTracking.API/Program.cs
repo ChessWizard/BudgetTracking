@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BudgetTracking.Service.Services.Token.Commands.CreateToken;
 using BudgetTracking.Data.Repositories;
 using BudgetTracking.Core.Repositories;
-using BudgetTracking.Service.Services.User.RegisterUser;
 using BudgetTracking.Data.Configurations;
 using BudgetTracking.Service.Validators.User;
 using FluentValidation;
+using BudgetTracking.Service.Services.User.Commands.RegisterUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -92,11 +92,11 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseCors();
 

@@ -1,4 +1,4 @@
-﻿using BudgetTracking.Service.Services.User.RegisterUser;
+﻿using BudgetTracking.Service.Services.User.Commands.RegisterUser;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

@@ -16,12 +16,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.User.RegisterUser
+namespace BudgetTracking.Service.Services.User.Commands.RegisterUser
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<Unit>>
     {
         private readonly IUnitofWork _unitofWork;
-        private readonly UserManager<BudgetTracking.Core.Entities.User> _userManager;
+        private readonly UserManager<Core.Entities.User> _userManager;
         private readonly IUserRepository _userRepository;
         private readonly IValidator<RegisterUserCommand> _validator;
 
@@ -46,7 +46,7 @@ namespace BudgetTracking.Service.Services.User.RegisterUser
 
             // Başta validasyonlardan geçmiş olarak gelen request verileri User nesnesi olarak oluşturulur
             // veritabanına bu User nesnesi kaydedilince register(kullanıcı kayıt işlemi) gerçekleştirilmiş olur
-            BudgetTracking.Core.Entities.User user = new()
+            Core.Entities.User user = new()
             {
                 Email = request.Email,// kullanıcının girmiş olduğu email adresi
                 NormalizedEmail = _userManager.NormalizeEmail(request.Email),// Identity kütüphanesi "eşsiz email kontrolünü" bu alan sayesinde yapar

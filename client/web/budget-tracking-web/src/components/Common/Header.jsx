@@ -5,7 +5,7 @@ import { IoCalendar } from "react-icons/io5";
 import { IoPieChart } from "react-icons/io5";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
-import { getIconByLabel, getNotLoggedInIconByLabel, getRouteByLabel } from "../../helpers/IconHelper";
+import { getIconByLabel, getNotLoggedInIconByLabel, getNotLoggedInRouteByLabel, getRouteByLabel } from "../../helpers/IconHelper";
 import { menuItems, notLoggedInMenuItems } from "../../constants/IconConstants";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -76,7 +76,7 @@ const Header = () => {
                     <div
                       style={{ cursor: "pointer" }}
                       className="flex items-center my-2 p-2 hover:bg-black hover:rounded"
-                      onClick={() => navigate(getRouteByLabel(item.label))}
+                      onClick={() => navigate(getNotLoggedInRouteByLabel(item.label))}
                     >
                       <span className="mx-3">{getNotLoggedInIconByLabel(item.label)}</span>
                       <span className="text-fuchsia-50">{item.label}</span>
@@ -101,7 +101,7 @@ const Header = () => {
                   <div className="mr-2">
                     <FaUser size={"20"} color="#f3796e" />
                   </div>
-                  <div>Hesabım</div>
+                  <div onClick={() => navigate("account")}>Hesabım</div>
                 </div>
                 <div
                   style={{ color: "#f3796e", cursor: "pointer" }}
@@ -110,7 +110,7 @@ const Header = () => {
                   <div className="mr-2">
                     <FaMoneyBill1Wave size={"20"} color="#f3796e" />
                   </div>
-                  <div>Harcamalarım</div>
+                  <div onClick={() => navigate("dashboard/expense")}>Harcamalarım</div>
                 </div>
                 <div
                   style={{ color: "#f3796e", cursor: "pointer" }}
@@ -119,7 +119,7 @@ const Header = () => {
                   <div className="mr-2">
                     <IoCalendar size={"20"} color="#f3796e" />
                   </div>
-                  <div>Takvim</div>
+                  <div onClick={() => navigate("dashboard/calendar")}>Takvim</div>
                 </div>
                 <div
                   style={{ color: "#f3796e", cursor: "pointer" }}
@@ -128,7 +128,7 @@ const Header = () => {
                   <div className="mr-2">
                     <IoPieChart size={"20"} color="#f3796e" />
                   </div>
-                  <div>Grafik</div>
+                  <div onClick={() => navigate("dashboard/chart")}>Grafik</div>
                 </div>
               </div>
             </span>
@@ -151,6 +151,7 @@ const Header = () => {
                     <div
                       style={{ cursor: "pointer" }}
                       className="flex items-center my-2 p-2 hover:bg-black hover:rounded"
+                      onClick={() => navigate(getRouteByLabel(item.label))}
                     >
                       <span className="mx-3">{getIconByLabel(item.label)}</span>
                       <span className="text-fuchsia-50">{item.label}</span>

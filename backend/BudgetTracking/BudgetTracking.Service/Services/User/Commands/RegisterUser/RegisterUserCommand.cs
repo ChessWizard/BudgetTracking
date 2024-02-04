@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.User.RegisterUser
+namespace BudgetTracking.Service.Services.User.Commands.RegisterUser
 {
     public class RegisterUserCommand : IRequest<Result<Unit>>
     {
