@@ -27,7 +27,7 @@ const Register = () => {
 
   const registerUser = async (data) => {
     await axios
-      .post(`https://budgettrackingapi20240204013759.azurewebsites.net/api/Users/register`, data)
+      .post(`https://budgettracking77.azurewebsites.net/api/Users/register`, data)
       .then((response) => {
         // setTimeout(() => {
         //   setLoading(false);
