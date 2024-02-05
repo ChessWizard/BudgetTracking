@@ -12,6 +12,7 @@ const Expense = () => {
   const [isLoading, setLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProcessType, setSelectedProcessType] = useState();
+  const [isProcessed, setProcessed] = useState(null);
 
   const accessToken = useSelector(selectCurrentToken);
 
@@ -36,7 +37,7 @@ const Expense = () => {
 
   useEffect(() => {
     getExpensesByUser();
-  }, []);
+  }, [isProcessed]);
 
   const handleAddProcessBtn = () => {
     console.log("Opened");
@@ -54,6 +55,10 @@ const Expense = () => {
     setModalOpen(value);
   };
 
+  const handleProcessed = (value) => {
+    setProcessed(value);
+  };
+
   return (
     <>
       {!isLoading && (
@@ -67,6 +72,7 @@ const Expense = () => {
               isOpen={isModalOpen}
               type={selectedProcessType}
               handleModalClose={(value) => handleModalClose(value)}
+              handleProcessed={handleProcessed}
             />
           )}
           <ExpenseProcesses data={expenseData} />
