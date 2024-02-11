@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import { setCredentials, logout } from '../../features/auth/authSlice';
+import { setCredentials, logout  } from '../../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: `https://budgettracking77.azurewebsites.net/api`,

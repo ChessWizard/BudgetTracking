@@ -2,6 +2,7 @@
 using BudgetTracking.Core.Repositories;
 using BudgetTracking.Core.UnitofWork;
 using BudgetTracking.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,11 @@ namespace BudgetTracking.Data.Repositories
         {
             await _context.Users.AddAsync(user);
         }
+
+        public IQueryable<User> GetAll()
+         => _context.Users.AsNoTracking();
+
+        public async Task UpdateUserAsync(User user)
+         => await Task.FromResult(_context.Users.Update(user));
     }
 }

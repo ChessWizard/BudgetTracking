@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SidebarLayout from "./components/Common/SidebarLayout";
 import Expense from "./pages/Expense";
+import Profile from "./pages/Profile";
+import RequireAuth from "./components/Common/RequireAuth";
 
 function App() {
   return (
@@ -19,8 +21,9 @@ function App() {
           {/* Normal Layout Screens End */}
 
           {/* Sidebar Layout Screens Start */}
-          <Route path="/dashboard" element={<SidebarLayout />}>{/* dashboard uzantısına sahip her yerde sidebar çıkar */}
-            <Route index path="/dashboard/expense" element={<Expense />}/>
+          <Route path="/dashboard" element={<RequireAuth><SidebarLayout /></RequireAuth>}>{/* dashboard uzantısına sahip her yerde sidebar çıkar */}
+            <Route index path="/dashboard/expense" element={<RequireAuth><Expense /></RequireAuth>}/>
+            <Route path="/dashboard/account" element={<RequireAuth><Profile /></RequireAuth>} />
           </Route>
           {/* Sidebar Layout Screens End */}
 

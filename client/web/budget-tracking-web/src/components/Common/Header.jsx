@@ -8,7 +8,7 @@ import { FaUser } from "react-icons/fa";
 import { getIconByLabel, getNotLoggedInIconByLabel, getNotLoggedInRouteByLabel, getRouteByLabel } from "../../helpers/IconHelper";
 import { menuItems, notLoggedInMenuItems } from "../../constants/IconConstants";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { selectCurrentToken } from "../../features/auth/authSlice";
 
 const Header = () => {
@@ -101,7 +101,7 @@ const Header = () => {
                   <div className="mr-2">
                     <FaUser size={"20"} color="#f3796e" />
                   </div>
-                  <div onClick={() => navigate("account")}>Hesabım</div>
+                  <div onClick={() => navigate("/dashboard/account")}>Hesabım</div>
                 </div>
                 <div
                   style={{ color: "#f3796e", cursor: "pointer" }}

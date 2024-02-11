@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 using BudgetTracking.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using BudgetTracking.Core.UnitofWork;
+using BudgetTracking.Core.Enums;
 
-namespace BudgetTracking.Service.Services.Expense.Commands.CreateExpense
+namespace BudgetTracking.Service.Services.ExpenseEntity.Commands.CreateExpense
 {
     public class CreateExpenseCommandHandler : IRequestHandler<CreateExpenseCommand, Result<Unit>>
     {
@@ -34,22 +35,21 @@ namespace BudgetTracking.Service.Services.Expense.Commands.CreateExpense
         public async Task<Result<Unit>> Handle(CreateExpenseCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(_securityContextAccessor.UserId.ToString());
-
             if(user is null)
                 return Result<Unit>.Error("Kullanıcı bulunamadı!", (int)HttpStatusCode.NotFound);
 
-            var category = await _categoryRepository.GetCategoryAsync(x => x.Id == request.CategoryId);
-
+            var category = await _categoryRepository.GetCategoryAsync(x => x.Id == request.CategoryId && x.UserId == user.Id);
             if (category is null)
-                return Result<Unit>.Error("Bütçenin ekleneceği uygun bir kategori bulunamadı!", (int)HttpStatusCode.NotFound);
-
+                return Result<Unit>.Error("Kullanıcıya ait uygun bir kategori bulunamadı!", (int)HttpStatusCode.NotFound);
 
             Core.Entities.Expense expense = new()
             {
                 Category = category,
                 Description = request.Description ?? "",
                 ExpenseType = request.ExpenseType,
-                Price = request.Price,
+                Price = request.ExpenseType == ExpenseType.Outgoing ? decimal.Parse($"-{request.Price}") : request.Price,
+                ProcessDate = request.ProcessDate,
+                ProcessTime = request.ProcessTime,
                 User = user,
             };
 

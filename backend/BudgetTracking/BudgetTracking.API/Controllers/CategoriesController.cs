@@ -1,5 +1,6 @@
 ﻿using BudgetTracking.Common.Controller;
 using BudgetTracking.Core.Enums;
+using BudgetTracking.Service.Services.Category.Commands.CreateCategoryByUser;
 using BudgetTracking.Service.Services.Category.Queries.GetCategoriesByUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,11 +20,19 @@ namespace BudgetTracking.API.Controllers
             _mediator = mediator;
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetCategoriesByUser([FromQuery] ExpenseType expenseType)
         {
             var result = await _mediator.Send(new GetCategoriesByUserQuery { ExpenseType = expenseType });
+            return FromResult(result);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateCategoryByUser([FromBody] CreateCategoryByUserCommand command)
+        {
+            var result = await _mediator.Send(command);
             return FromResult(result);
         }
     }

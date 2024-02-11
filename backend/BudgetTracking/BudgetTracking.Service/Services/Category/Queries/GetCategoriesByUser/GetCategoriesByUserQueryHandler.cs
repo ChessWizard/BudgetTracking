@@ -34,8 +34,7 @@ namespace BudgetTracking.Service.Services.Category.Queries.GetCategoriesByUser
                 return Result<GetCategoriesByUserQueryResult>.Error("Kullanıcı bulunamadı!", (int)HttpStatusCode.NotFound);
 
             var categories = await _categoryRepository.GetAllCategoriesByUser(user.Id)
-                .Include(x => x.Expenses)
-                .Where(x => x.Expenses.Any(x => x.ExpenseType == request.ExpenseType))
+                .Where(x => x.ExpenseType == request.ExpenseType)
                 .Select(x => new CategoryModel
                 {
                     Id = x.Id,

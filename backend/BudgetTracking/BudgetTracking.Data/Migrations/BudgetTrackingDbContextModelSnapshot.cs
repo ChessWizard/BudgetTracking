@@ -31,6 +31,9 @@ namespace BudgetTracking.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("ExpenseType")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
@@ -63,6 +66,9 @@ namespace BudgetTracking.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("CurrencyCode")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -76,6 +82,12 @@ namespace BudgetTracking.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<DateOnly>("ProcessDate")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("ProcessTime")
+                        .HasColumnType("time without time zone");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
@@ -86,6 +98,45 @@ namespace BudgetTracking.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("BudgetTracking.Core.Entities.PaymentAccount", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CurrencyCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("ModifiedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PaymentAccounts");
                 });
 
             modelBuilder.Entity("BudgetTracking.Core.Entities.Role", b =>
@@ -130,7 +181,7 @@ namespace BudgetTracking.Data.Migrations
                     b.Property<int>("AccountType")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("BirthDate")
+                    b.Property<DateOnly?>("BirthDate")
                         .HasColumnType("date");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -147,7 +198,7 @@ namespace BudgetTracking.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("GenderType")
+                    b.Property<int?>("GenderType")
                         .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
@@ -366,6 +417,17 @@ namespace BudgetTracking.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BudgetTracking.Core.Entities.PaymentAccount", b =>
+                {
+                    b.HasOne("BudgetTracking.Core.Entities.User", "User")
+                        .WithMany("PaymentAccounts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BudgetTracking.Core.Entities.UserRefreshToken", b =>
                 {
                     b.HasOne("BudgetTracking.Core.Entities.User", "User")
@@ -436,6 +498,8 @@ namespace BudgetTracking.Data.Migrations
             modelBuilder.Entity("BudgetTracking.Core.Entities.User", b =>
                 {
                     b.Navigation("Categories");
+
+                    b.Navigation("PaymentAccounts");
 
                     b.Navigation("UserRefreshToken");
                 });

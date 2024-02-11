@@ -1,4 +1,5 @@
 ﻿using BudgetTracking.Common.Entity;
+using BudgetTracking.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace BudgetTracking.Core.Entities
         public string Title { get; set; }
 
         public string? ImageUrl { get; set; }
+
+        public ExpenseType ExpenseType { get; set; }
 
         public Guid UserId { get; set; }
 

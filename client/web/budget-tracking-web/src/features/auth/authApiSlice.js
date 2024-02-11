@@ -9,8 +9,20 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 body: {...credentials}
             })
         }),
+        logout: builder.mutation({
+            query: (refreshToken) => ({
+                url: `Auths/logout?refreshToken=${refreshToken}`,
+                method: 'DELETE',
+            })
+        }),
+        refresh: builder.mutation({
+            query: (refreshToken) => ({
+                url: `Auths/refresh?refreshToken=${refreshToken}`,
+                method: 'POST',
+            })
+        })
     })
 })
 
-export const { useLoginMutation } = authApiSlice;
-export const { endpoints: { login } } = authApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRefreshMutation } = authApiSlice;
+export const { endpoints: { login, logout, refresh } } = authApiSlice;

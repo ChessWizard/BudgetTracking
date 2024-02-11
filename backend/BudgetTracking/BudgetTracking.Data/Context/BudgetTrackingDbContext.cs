@@ -26,6 +26,8 @@ namespace BudgetTracking.Data.Context
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<PaymentAccount> PaymentAccounts { get; set; }
+
         #region SaveChanges Interceptor
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

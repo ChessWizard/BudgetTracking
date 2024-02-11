@@ -102,6 +102,43 @@ const Expense = () => {
           </div>
         </div>
       )}
+      {expenseData === null && (
+        <>
+          <div>Herhangi bir gider bulunamadı</div>
+          {isModalOpen && (
+            <ProcessModal
+              isOpen={isModalOpen}
+              type={selectedProcessType}
+              handleModalClose={(value) => handleModalClose(value)}
+              handleProcessed={handleProcessed}
+            />
+          )}
+          <div id="process-btn-group" className="absolute bottom-10 right-10">
+            {/* sağ ve aşağı hizalama */}
+            <div
+              onClick={() => handleAddProcessBtn()}
+              style={{ cursor: "pointer" }}
+            >
+              <ProcessButton
+                padding={"p-5"}
+                margin={"mb-3"}
+                backgroundColor={"bg-[#4CAF50]"}
+                type={"add"}
+              />
+            </div>
+            <div
+              onClick={() => handleSubtractProcessBtn()}
+              style={{ cursor: "pointer" }}
+            >
+              <ProcessButton
+                padding={"p-5"}
+                backgroundColor={"bg-[#F44336]"}
+                type={"subtract"}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

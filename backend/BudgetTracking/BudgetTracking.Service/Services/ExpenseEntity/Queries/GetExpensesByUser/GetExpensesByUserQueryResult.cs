@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.Expense.Queries.GetExpensesByUser
+namespace BudgetTracking.Service.Services.ExpenseEntity.Queries.GetExpensesByUser
 {
     public class GetExpensesByUserQueryResult
     {
@@ -21,5 +21,6 @@ namespace BudgetTracking.Service.Services.Expense.Queries.GetExpensesByUser
         public string ImageUrl { get; set; }
         public string Category { get; set; }
         public DateOnly CreatedDate { get; set; }
+        public CurrencyCode CurrencyCode { get; set; }
     }
 }

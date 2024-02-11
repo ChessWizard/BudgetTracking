@@ -1,6 +1,8 @@
 ﻿using BudgetTracking.Common.Result;
 using BudgetTracking.Core.ContextAccessor;
 using BudgetTracking.Core.Repositories;
+using BudgetTracking.Data.Extensions.Collection;
+using BudgetTracking.Service.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.Expense.Queries.GetExpensesByUser
+namespace BudgetTracking.Service.Services.ExpenseEntity.Queries.GetExpensesByUser
 {
     public class GetExpensesByUserQueryHandler : IRequestHandler<GetExpensesByUserQuery, Result<GetExpensesByUserQueryResult>>
     {
@@ -35,23 +37,23 @@ namespace BudgetTracking.Service.Services.Expense.Queries.GetExpensesByUser
 
             var expensesByUser = await _expenseRepository.GetAllExpenses()
                 .Include(x => x.Category)
-                .Where(x => x.UserId == user.Id)
+                .Where(x => x.UserId == _securityContextAccessor.UserId)
+                .Where(request.WherePredicate)
                 .Select(x => new Process
                 {
                     Category = x.Category.Title,
                     ExpenseType = x.ExpenseType,
-                    CreatedDate = DateOnly.FromDateTime(x.CreatedOn.DateTime),
+                    CreatedDate = x.ProcessDate,
                     ImageUrl = x.Category.ImageUrl,
                     Price = x.Price,
+                    CurrencyCode = x.CurrencyCode
                 })
                 .ToListAsync();
 
-            if(expensesByUser is null || !expensesByUser.Any())
+            if(expensesByUser.IsNullOrNotAny())
                 return Result<GetExpensesByUserQueryResult>.Error("Kullanıcıya ait harcama bulunamadı!", (int)HttpStatusCode.NotFound);
 
-            var count = await _expenseRepository.GetAllExpenses()
-                .CountAsync();
-
+            var count = expensesByUser.Count;
             var totalPrice = expensesByUser.Select(x => x.Price)
                 .Sum();
 

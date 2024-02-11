@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Category\Commands\" />
-    <Folder Include="Services\User\Queries\" />
+    <Folder Include="Services\Authentication\Queries\" />
+    <Folder Include="Services\Token\Queries\" />
   </ItemGroup>
 
 </Project>

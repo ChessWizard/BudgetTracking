@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.Expense.Commands.CreateExpense
+namespace BudgetTracking.Service.Services.ExpenseEntity.Commands.CreateExpense
 {
     public class CreateExpenseCommand : IRequest<Result<Unit>>
     {
@@ -18,5 +18,9 @@ namespace BudgetTracking.Service.Services.Expense.Commands.CreateExpense
         public ExpenseType ExpenseType { get; set; }
 
         public string? Description { get; set; }
+
+        public DateOnly ProcessDate { get; set; }
+
+        public TimeOnly ProcessTime { get; set; }
     }
 }

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.Expense.Queries.GetExpensesByUser
+namespace BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAccounts
 {
-    public class GetExpensesByUserQuery : IRequest<Result<GetExpensesByUserQueryResult>>
+    public class GetAllPaymentAccountsQuery : IRequest<Result<GetAllPaymentAccountsQueryResult>>
     {
     }
 }

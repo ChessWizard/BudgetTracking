@@ -1,6 +1,9 @@
 ﻿using BudgetTracking.Common.Controller;
-using BudgetTracking.Service.Services.Expense.Commands.CreateExpense;
-using BudgetTracking.Service.Services.Expense.Queries.GetExpensesByUser;
+using BudgetTracking.Service.Enums;
+using BudgetTracking.Service.Services.ExpenseEntity.Commands.CreateExpense;
+using BudgetTracking.Service.Services.ExpenseEntity.Commands.SearchExpense;
+using BudgetTracking.Service.Services.ExpenseEntity.Queries.GetExpensesByDate;
+using BudgetTracking.Service.Services.ExpenseEntity.Queries.GetExpensesByUser;
 using BudgetTracking.Service.Services.User.Commands.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -29,10 +32,18 @@ namespace BudgetTracking.API.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetExpensesByUser()
+        [HttpPost("search")]
+        public async Task<IActionResult> GetExpensesByUser([FromBody] SearchExpenseCommand command)
         {
-            var result = await _mediator.Send(new GetExpensesByUserQuery());
+            var result = await _mediator.Send(command);
+            return FromResult(result);
+        }
+
+        [Authorize]
+        [HttpGet("from/date")]
+        public async Task<IActionResult> GetExpensesByDate([FromQuery] Month month, [FromQuery] int year)
+        {
+            var result = await _mediator.Send(new GetExpensesByDateQuery { Month = month, Year = year });
             return FromResult(result);
         }
     }

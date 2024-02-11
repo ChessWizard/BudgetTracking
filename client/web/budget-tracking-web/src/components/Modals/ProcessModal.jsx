@@ -91,6 +91,7 @@ const ProcessModal = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   };
 
@@ -161,9 +162,9 @@ const ProcessModal = (props) => {
               </div>
               <button
                 type="submit"
-                className="mt-5 ml-2 p-1 text-white rounded bg-[#4CAF50]"
+                className={`mt-5 ml-2 p-1 text-white rounded ${props.type === "add" ? "bg-[#4CAF50]" : "bg-[#F44336]"} `}
               >
-                Kaydet
+                Ekle
               </button>
             </div>
           </form>

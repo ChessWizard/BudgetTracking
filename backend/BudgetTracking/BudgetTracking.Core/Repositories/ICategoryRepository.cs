@@ -13,5 +13,7 @@ namespace BudgetTracking.Core.Repositories
         Task<Category> GetCategoryAsync(Expression<Func<Category, bool>> predicate);
 
         IQueryable<Category> GetAllCategoriesByUser(Guid userId);
+
+        Task AddCategoryAsync(Category category);
     }
 }

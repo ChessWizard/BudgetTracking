@@ -16,9 +16,9 @@ namespace BudgetTracking.Core.Entities
 
         public string? Surname { get; set; }
 
-        public GenderType GenderType { get; set; }
+        public GenderType? GenderType { get; set; }
 
-        public DateOnly BirthDate { get; set; }
+        public DateOnly? BirthDate { get; set; }
 
         public AccountType AccountType { get; set; }
         public UserState UserState { get; set; }
@@ -30,5 +30,8 @@ namespace BudgetTracking.Core.Entities
 
         // bir kullanıcı birden fazla expense kategorisine sahip olabilir
         public ICollection<Category> Categories { get; set; }
+
+        // bir kullanıcının birden fazla para hesabı olabilir
+        public ICollection<PaymentAccount> PaymentAccounts { get; set; }
     }
 }

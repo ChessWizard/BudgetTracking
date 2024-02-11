@@ -20,6 +20,11 @@ namespace BudgetTracking.Data.Repositories
             _context = context;
         }
 
+        public async Task AddCategoryAsync(Category category)
+        {
+            await _context.Categories.AddAsync(category);
+        }
+
         public IQueryable<Category> GetAllCategoriesByUser(Guid userId)
          => _context.Categories
             .Where(x => x.UserId == userId);

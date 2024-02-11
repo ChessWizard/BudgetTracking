@@ -45,7 +45,7 @@ const getSidebarIconsByLabel = (label) => {
       return <PiSquaresFourFill size={"30"} color="white" />;
     case "İşlemler":
       return <GrMoney size={"25"} color="white" />
-    case "Harcamalarım":
+    case "Hesaplar":
       return <FaMoneyBill1Wave size={"25"} color="white" /> 
     case "Planlanmış Ödemeler":
       return <MdSchedule size={"30"} color="white" />
@@ -59,6 +59,27 @@ const getSidebarIconsByLabel = (label) => {
       break;
   }
 };
+
+const getSidebarRouteByLabel = (label) => {
+  switch (label) {
+    case "Genel Bakış":
+      return "/dashboard"
+    case "İşlemler":
+      return "/dashboard/expense"
+    case "Hesaplar":
+      return ""
+    case "Planlanmış Ödemeler":
+      return ""
+    case "Bütçeler":
+      return ""
+    case "Grafikler":
+      return ""
+    case "Takvim":
+      return "/dashboard/calendar"
+    default:
+      break;
+  }
+}
 
 const getNotLoggedInIconByLabel = (label) => {
   switch (label) {
@@ -83,6 +104,7 @@ const getNotLoggedInRouteByLabel = (label) => {
 
 export {
   getIconByLabel,
+  getSidebarRouteByLabel,
   getNotLoggedInIconByLabel,
   getNotLoggedInRouteByLabel,
   getRouteByLabel,

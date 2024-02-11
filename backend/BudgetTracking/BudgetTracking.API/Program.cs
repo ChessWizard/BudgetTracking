@@ -19,6 +19,7 @@ using BudgetTracking.Data.ContextAccessor;
 using BudgetTracking.Core.ContextAccessor;
 using BudgetTracking.Data.Helpers;
 using Microsoft.OpenApi.Models;
+using BudgetTracking.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,7 @@ builder.Services.AddSwaggerGen(
     c => {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "JWTToken_Auth_API",
+        Title = "Budget Tracking API",
         Version = "v1"
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -68,6 +69,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
 builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IPaymentAccountRepository, PaymentAccountRepository>();
 builder.Services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
 builder.Services.AddScoped<IValidator<RegisterUserCommand>, RegisterUserCommandValidator>();
 
@@ -131,6 +133,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Global Exception Handler
+app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
 app.UseCors();
 

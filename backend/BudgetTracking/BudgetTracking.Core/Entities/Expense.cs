@@ -18,7 +18,13 @@ namespace BudgetTracking.Core.Entities
 
         public decimal Price { get; set; }
 
+        public CurrencyCode CurrencyCode { get; set; }
+
         public string Description { get; set; }
+
+        public DateOnly ProcessDate { get; set; }
+
+        public TimeOnly ProcessTime { get; set; }
 
         // bir expense yalnızca 1 kategoriye aittir
         public Guid CategoryId { get; set; }
