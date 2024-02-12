@@ -1,4 +1,5 @@
 ﻿using BudgetTracking.Common.Result;
+using BudgetTracking.Core.Entities;
 using BudgetTracking.Service.Enums;
 using MediatR;
 using System;
@@ -14,6 +15,9 @@ namespace BudgetTracking.Service.Services.ExpenseEntity.Queries.GetExpensesByUse
     {
         // Gelen farklı istekler için "generic where clause" yaratarak genel bir expense response yapısı yaratıyoruz
         // bu sayede kod tekrarının önüne geçilmiş olur
-        public Expression<Func<Core.Entities.Expense, bool>> WherePredicate { get; set; }
+        public Expression<Func<Expense, bool>>? WherePredicate { get; set; }
+
+        // generic include
+        public List<string> IncludePredicate { get; set; }
     }
 }

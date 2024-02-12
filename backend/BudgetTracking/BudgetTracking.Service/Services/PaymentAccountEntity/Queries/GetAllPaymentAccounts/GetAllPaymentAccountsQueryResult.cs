@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAccounts
+namespace BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPaymentAccounts
 {
     public class GetAllPaymentAccountsQueryResult
     {
@@ -16,6 +16,8 @@ namespace BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAc
 
     public class PaymentModel
     {
+        public Guid Id { get; set; }
+
         public string Title { get; set; }
 
         public decimal Amount { get; set; }

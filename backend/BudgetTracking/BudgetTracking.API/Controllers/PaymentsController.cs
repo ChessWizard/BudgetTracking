@@ -1,6 +1,6 @@
 ﻿using BudgetTracking.Common.Controller;
-using BudgetTracking.Service.Services.PaymentAccount.Commands.CreatePaymentAccount;
-using BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAccounts;
+using BudgetTracking.Service.Services.PaymentAccountEntity.Commands.CreatePaymentAccount;
+using BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPaymentAccounts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

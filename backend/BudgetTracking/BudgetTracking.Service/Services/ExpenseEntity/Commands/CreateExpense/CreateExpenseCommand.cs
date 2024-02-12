@@ -13,6 +13,8 @@ namespace BudgetTracking.Service.Services.ExpenseEntity.Commands.CreateExpense
     {
         public Guid CategoryId { get; set; }
 
+        public Guid PaymentAccountId { get; set; }
+
         public decimal Price { get; set; }
 
         public ExpenseType ExpenseType { get; set; }

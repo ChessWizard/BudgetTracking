@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.PaymentAccount.Commands.CreatePaymentAccount
+namespace BudgetTracking.Service.Services.PaymentAccountEntity.Commands.CreatePaymentAccount
 {
     public class CreatePaymentAccountCommand : IRequest<Result<Unit>>
     {

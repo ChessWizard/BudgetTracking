@@ -1,6 +1,7 @@
 ﻿using BudgetTracking.Common.Result;
 using BudgetTracking.Core.ContextAccessor;
 using BudgetTracking.Core.Repositories;
+using BudgetTracking.Data.Extensions.Collection;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,7 @@ namespace BudgetTracking.Service.Services.Category.Queries.GetCategoriesByUser
                     ImageUrl = x.ImageUrl
                 }).ToListAsync();
 
-            if (categories is null || !categories.Any())
+            if (categories.IsNullOrNotAny())
                 return Result<GetCategoriesByUserQueryResult>.Error("Kullanıcıya ait kategori bulunamadı!", (int)HttpStatusCode.NotFound);
 
             return Result<GetCategoriesByUserQueryResult>.Success(new GetCategoriesByUserQueryResult { Categories = categories }, 

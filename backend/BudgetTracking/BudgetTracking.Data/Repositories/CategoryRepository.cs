@@ -30,6 +30,7 @@ namespace BudgetTracking.Data.Repositories
             .Where(x => x.UserId == userId);
 
         public async Task<Category> GetCategoryAsync(Expression<Func<Category, bool>> predicate)
-         => await _context.Categories.FirstOrDefaultAsync(predicate);
+         => await _context.Categories
+            .FirstOrDefaultAsync(predicate);
     }
 }

@@ -13,16 +13,21 @@ const Expense = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProcessType, setSelectedProcessType] = useState();
   const [isProcessed, setProcessed] = useState(null);
+  const [month, setMonth] = useState(2);
+  const [year, setYear] = useState(2024);
 
   const accessToken = useSelector(selectCurrentToken);
 
   const getExpensesByUser = () => {
     axios
-      .get("https://budgettracking77.azurewebsites.net/api/Expenses", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .get(
+        `https://budgettracking77.azurewebsites.net/api/Expenses/from/date?month=${month}&year=${year}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
         setExpenseData(response.data.data);
@@ -59,6 +64,45 @@ const Expense = () => {
     setProcessed(value);
   };
 
+  // Dosyayı indirmek için bir fonksiyon
+  const downloadFile = (data, fileName) => {
+    if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(data, fileName);
+    } else {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(data);
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const handleExportAsExcel = () => {
+    axios
+      .post(
+        "https://budgettracking77.azurewebsites.net/api/Files/export",
+        // from body
+        {
+          exportFileType: "Excel",
+          exportProcessType: "Transactions",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          responseType : 'blob'
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        downloadFile(response.data, "Process.xlsx")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       {!isLoading && (
@@ -67,6 +111,12 @@ const Expense = () => {
           style={{ backgroundColor: "#F2F2F2" }}
           className="w-full flex justify-center items-center"
         >
+          <div
+            className="p-3 bg-[#4CAF50]"
+            onClick={() => handleExportAsExcel()}
+          >
+            İşlemleri İndir
+          </div>
           {isModalOpen && (
             <ProcessModal
               isOpen={isModalOpen}

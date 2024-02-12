@@ -1,9 +1,10 @@
 ﻿using BudgetTracking.Common.Result;
 using BudgetTracking.Core.ContextAccessor;
+using BudgetTracking.Core.Entities;
 using BudgetTracking.Core.Repositories;
 using BudgetTracking.Core.UnitofWork;
 using BudgetTracking.Data.Extensions.Collection;
-using BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAccounts;
+using BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPaymentAccounts;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -13,7 +14,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.PaymentAccount.Commands.CreatePaymentAccount
+namespace BudgetTracking.Service.Services.PaymentAccountEntity.Commands.CreatePaymentAccount
 {
     public class CreatePaymentAccountCommandHandler : IRequestHandler<CreatePaymentAccountCommand, Result<Unit>>
     {
@@ -59,7 +60,7 @@ namespace BudgetTracking.Service.Services.PaymentAccount.Commands.CreatePaymentA
                 }
             }
 
-            Core.Entities.PaymentAccount paymentAccount = new()
+            PaymentAccount paymentAccount = new()
             {
                 CurrencyCode = request.CurrencyCode,
                 Amount = request.InitialAmount,

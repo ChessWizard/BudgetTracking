@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAccounts
+namespace BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPaymentAccounts
 {
     public class GetAllPaymentAccountsQuery : IRequest<Result<GetAllPaymentAccountsQueryResult>>
     {

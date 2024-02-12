@@ -20,6 +20,9 @@ using BudgetTracking.Core.ContextAccessor;
 using BudgetTracking.Data.Helpers;
 using Microsoft.OpenApi.Models;
 using BudgetTracking.API.Extensions;
+using BudgetTracking.Core.File;
+using BudgetTracking.Data.File;
+using BudgetTracking.Service.Services.File.Commands.ExportFile;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,11 +38,11 @@ builder.Services.AddSwaggerGen(
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+        Description = "Please enter a valid token.",
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement {
         {
@@ -72,6 +75,8 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPaymentAccountRepository, PaymentAccountRepository>();
 builder.Services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
 builder.Services.AddScoped<IValidator<RegisterUserCommand>, RegisterUserCommandValidator>();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IExcelService, ExcelService>();
 
 //builder.Services.Configure<TokenOptionConfigurations>(builder.Configuration.GetSection("TokenOptionConfigurations"));
 

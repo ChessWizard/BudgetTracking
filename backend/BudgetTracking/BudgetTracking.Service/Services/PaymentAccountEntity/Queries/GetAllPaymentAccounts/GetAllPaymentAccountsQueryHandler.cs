@@ -12,7 +12,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAccounts
+namespace BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPaymentAccounts
 {
     public class GetAllPaymentAccountsQueryHandler : IRequestHandler<GetAllPaymentAccountsQuery, Result<GetAllPaymentAccountsQueryResult>>
     {
@@ -30,6 +30,7 @@ namespace BudgetTracking.Service.Services.PaymentAccount.Queries.GetAllPaymentAc
             var paymentsByUser = await _paymentAccountRepository.GetAllPaymentAccountsByUser(_contextAccessor.UserId)
                 .Select(x => new PaymentModel
                 {
+                    Id = x.Id,
                     Title = x.Title,
                     Amount = x.Amount,
                     CurrencyCode = x.CurrencyCode,

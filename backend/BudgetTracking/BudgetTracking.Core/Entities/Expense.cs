@@ -30,5 +30,10 @@ namespace BudgetTracking.Core.Entities
         public Guid CategoryId { get; set; }
 
         public Category Category { get; set; }
+
+        // 1 expense yalnızca 1 PaymentAccount'a aittir
+        public Guid? PaymentAccountId { get; set; }
+
+        public PaymentAccount PaymentAccount { get; set; }
     }
 }
