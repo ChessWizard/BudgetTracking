@@ -26,7 +26,8 @@ using BudgetTracking.Service.Services.File.Commands.ExportFile;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+// .NET'deki DateOnly/TimeOnly tiplerini okuma sorununu çözer
+builder.Services.AddControllers(x => x.UseDateOnlyTimeOnlyStringConverters());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
     c => {

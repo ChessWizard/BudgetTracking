@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../features/auth/authSlice";
 import ProcessModal from "../components/Modals/ProcessModal";
+import { FaDownload } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Expense = () => {
   const [expenseData, setExpenseData] = useState(null);
@@ -13,6 +15,7 @@ const Expense = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProcessType, setSelectedProcessType] = useState();
   const [isProcessed, setProcessed] = useState(null);
+  const navigate = useNavigate()
   const [month, setMonth] = useState(2);
   const [year, setYear] = useState(2024);
 
@@ -64,93 +67,63 @@ const Expense = () => {
     setProcessed(value);
   };
 
-  // Dosyayı indirmek için bir fonksiyon
-  const downloadFile = (data, fileName) => {
-    if (navigator.msSaveBlob) { // IE 10+
-      navigator.msSaveBlob(data, fileName);
-    } else {
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(data);
-      link.setAttribute('download', fileName);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  };
-
-  const handleExportAsExcel = () => {
-    axios
-      .post(
-        "https://budgettracking77.azurewebsites.net/api/Files/export",
-        // from body
-        {
-          exportFileType: "Excel",
-          exportProcessType: "Transactions",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          responseType : 'blob'
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        downloadFile(response.data, "Process.xlsx")
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  
 
   return (
     <>
       {!isLoading && (
-        <div
-          id="expense-container"
-          style={{ backgroundColor: "#F2F2F2" }}
-          className="w-full flex justify-center items-center"
-        >
+        <>
           <div
-            className="p-3 bg-[#4CAF50]"
-            onClick={() => handleExportAsExcel()}
+            id="expense-container"
+            style={{ backgroundColor: "#F2F2F2" }}
+            className="w-full flex flex-col justify-center items-center"
           >
-            İşlemleri İndir
-          </div>
-          {isModalOpen && (
-            <ProcessModal
-              isOpen={isModalOpen}
-              type={selectedProcessType}
-              handleModalClose={(value) => handleModalClose(value)}
-              handleProcessed={handleProcessed}
-            />
-          )}
-          <ExpenseProcesses data={expenseData} />
-          <div id="process-btn-group" className="absolute bottom-10 right-10">
-            {/* sağ ve aşağı hizalama */}
-            <div
-              onClick={() => handleAddProcessBtn()}
-              style={{ cursor: "pointer" }}
-            >
-              <ProcessButton
-                padding={"p-5"}
-                margin={"mb-3"}
-                backgroundColor={"bg-[#4CAF50]"}
-                type={"add"}
+            {isModalOpen && (
+              <ProcessModal
+                isOpen={isModalOpen}
+                type={selectedProcessType}
+                handleModalClose={(value) => handleModalClose(value)}
+                handleProcessed={handleProcessed}
               />
+            )}
+            <div className="flex justify-center items-center">
+              <div
+                id="navigate-to-report"
+                className="flex p-3 bg-[#4CAF50] mb-5 text-white font-semibold text-base rounded md:text-lg lg:text-lg"
+                onClick={() => navigate("/dashboard/report/transaction")}
+                style={{ cursor: "pointer" }}
+              >
+                <FaDownload size={"20"} />
+                <span className="mx-3">Rapor</span>
+              </div>
             </div>
-            <div
-              onClick={() => handleSubtractProcessBtn()}
-              style={{ cursor: "pointer" }}
-            >
-              <ProcessButton
-                padding={"p-5"}
-                backgroundColor={"bg-[#F44336]"}
-                type={"subtract"}
-              />
+            <ExpenseProcesses data={expenseData} />
+            <div id="process-btn-group" className="absolute bottom-10 right-10">
+              {/* sağ ve aşağı hizalama */}
+              <div
+                onClick={() => handleAddProcessBtn()}
+                style={{ cursor: "pointer" }}
+              >
+                <ProcessButton
+                  padding={"p-5"}
+                  margin={"mb-3"}
+                  backgroundColor={"bg-[#4CAF50]"}
+                  type={"add"}
+                />
+              </div>
+              <div
+                onClick={() => handleSubtractProcessBtn()}
+                style={{ cursor: "pointer" }}
+              >
+                <ProcessButton
+                  padding={"p-5"}
+                  backgroundColor={"bg-[#F44336]"}
+                  type={"subtract"}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
       {expenseData === null && (
         <>
