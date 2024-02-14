@@ -36,13 +36,17 @@ namespace BudgetTracking.Service.Services.ExpenseEntity.Commands.CreateExpense
                 return Result<Unit>.Error("Kullanıcı bulunamadı!", (int)HttpStatusCode.NotFound);
 
             var category = await _categoryRepository.GetCategoryAsync(x => x.Id == request.CategoryId && x.UserId == user.Id);
-            if (category is null || category.ExpenseType != request.ExpenseType)
+            if (category is null)
                 return Result<Unit>.Error("Kullanıcıya ait uygun bir kategori bulunamadı!", (int)HttpStatusCode.NotFound);
+            if (category.ExpenseType != request.ExpenseType)
+                return Result<Unit>.Error("Seçilen kategori ile harcama tipi eşleşmiyor!", (int)HttpStatusCode.BadRequest);
 
             var paymentAccount = await _paymentAccountRepository.GetPaymentAccountAsync(x => x.Id == request.PaymentAccountId 
                                                                                         && x.UserId == _securityContextAccessor.UserId);
             if (paymentAccount is null)
                 return Result<Unit>.Error("Kullanıcıya ait uygun bir hesap bulunamadı!", (int)HttpStatusCode.NotFound);
+            if (paymentAccount.CurrencyCode != request.CurrencyCode)
+                return Result<Unit>.Error("Seçilen hesap ile para birimi eşleşmiyor!", (int)HttpStatusCode.BadRequest);
 
             Expense expense = new()
             {
@@ -52,6 +56,7 @@ namespace BudgetTracking.Service.Services.ExpenseEntity.Commands.CreateExpense
                 Price = request.ExpenseType == ExpenseType.Outgoing ? decimal.Parse($"-{request.Price}") : request.Price,
                 ProcessDate = request.ProcessDate,
                 ProcessTime = request.ProcessTime,
+                CurrencyCode = request.CurrencyCode,
                 User = user,
                 PaymentAccount = paymentAccount,
             };

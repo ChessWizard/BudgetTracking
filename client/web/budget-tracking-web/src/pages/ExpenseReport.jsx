@@ -45,6 +45,10 @@ const ExpenseReport = () => {
     setSelectedExportFileType(exportFileType);
   };
 
+  const handlePaymentAccountChange = (paymentAccountId) => {
+    setValue("paymentAccountId", paymentAccountId);
+  };
+
   const getUserPaymentAccounts = () => {
     axios
       .get("https://budgettracking77.azurewebsites.net/api/Payments", {
@@ -159,7 +163,7 @@ const ExpenseReport = () => {
                         <p className="mb-2">Hesap:</p>
                         <select
                           {...field}
-                          //onChange={(e) => handleCategoryChange(e.target.value)}
+                          onChange={(e) => handlePaymentAccountChange(e.target.value)}
                           className="p-2 w-full border border-black rounded md:h-1/2 lg:1/2 md:mb-0 lg:mb-0"
                           {...register("paymentAccountId")}
                         >

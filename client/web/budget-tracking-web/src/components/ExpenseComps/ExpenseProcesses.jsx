@@ -3,12 +3,14 @@ import React from "react";
 import { CiMenuKebab } from "react-icons/ci";
 
 const ExpenseProcesses = (props) => {
+
   return (
     <>
       <div
         id="expense-processes-container"
-        className="w-full bg-white border border-solid border-1 border-slate-500 rounded p-3
+        className="overflow-y-auto w-full bg-white border border-solid border-1 border-slate-500 rounded p-3
       md:w-1/2 lg:w-2/3"
+      style={{scrollbarWidth:"thin"}}
       >
         <div id="process-counts-wrapper" className="flex items-center">
           <div id="count" className="flex items-center md:ml-5 lg:ml-5">
@@ -25,7 +27,7 @@ const ExpenseProcesses = (props) => {
             </span>
           </div>
         </div>
-        <div id="process-contents-wrapper" className="pt-7">
+        <div id="process-contents-wrapper" className="pt-7 overflow-y-auto">
           {props.data.processes.map((item) => (
             <>
               <div className="flex justify-around mb-4">

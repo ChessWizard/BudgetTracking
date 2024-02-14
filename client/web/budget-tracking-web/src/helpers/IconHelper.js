@@ -8,6 +8,7 @@ import { FaCashRegister } from "react-icons/fa6";
 import { PiSquaresFourFill } from "react-icons/pi";
 import { GrMoney } from "react-icons/gr";
 import { MdSchedule } from "react-icons/md";
+import { MdCategory } from "react-icons/md";
 
 const getIconByLabel = (label) => {
   switch (label) {
@@ -55,6 +56,8 @@ const getSidebarIconsByLabel = (label) => {
       return <IoPieChart size={"25"} color="white" />
     case "Takvim":
       return <IoCalendar size={"25"} color="white" />
+    case "Kategori Yönetimi":
+      return <MdCategory size={"25"} color="white" />  
     default:
       break;
   }
@@ -76,6 +79,8 @@ const getSidebarRouteByLabel = (label) => {
       return ""
     case "Takvim":
       return "/dashboard/calendar"
+    case "Kategori Yönetimi":
+      return "/dashboard/category"
     default:
       break;
   }
@@ -102,11 +107,22 @@ const getNotLoggedInRouteByLabel = (label) => {
   }
 };
 
+const getCategoryIcons = () => {
+  return [
+    "https://webapp.fastbudget.app/static/icons/ic_audit_base.svg",
+    "https://webapp.fastbudget.app/static/icons/ic_bank.svg",
+    "https://webapp.fastbudget.app/static/icons/ic_base_health.svg",
+    "https://webapp.fastbudget.app/static/icons/ic_base_incomes.svg",
+    "https://webapp.fastbudget.app/static/icons/ic_base_pet_food.svg"
+  ]
+}
+
 export {
   getIconByLabel,
   getSidebarRouteByLabel,
   getNotLoggedInIconByLabel,
   getNotLoggedInRouteByLabel,
   getRouteByLabel,
-  getSidebarIconsByLabel
+  getSidebarIconsByLabel,
+  getCategoryIcons
 };

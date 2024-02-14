@@ -19,6 +19,8 @@ namespace BudgetTracking.Service.Services.ExpenseEntity.Commands.CreateExpense
 
         public ExpenseType ExpenseType { get; set; }
 
+        public CurrencyCode CurrencyCode { get; set; }
+
         public string? Description { get; set; }
 
         public DateOnly ProcessDate { get; set; }

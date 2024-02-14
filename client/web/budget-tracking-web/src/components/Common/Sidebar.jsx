@@ -20,6 +20,7 @@ const Sidebar = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [fullName, setFullName] = useState("İsimsiz Kullanıcı");
   const [isLoading, setLoading] = useState(true);
+  const [clickedElementIndex, setClickedElementIndex] = useState(0)
   const navigate = useNavigate()
 
   const sidebarElements = [
@@ -44,6 +45,9 @@ const Sidebar = () => {
     {
       label: "Takvim",
     },
+    {
+      label: "Kategori Yönetimi"
+    }
   ];
 
   const accessToken = useSelector(selectCurrentToken);
@@ -87,13 +91,19 @@ const Sidebar = () => {
     getUserDetails();
   }, []);
 
+  const handleClickedSidebarElement = (label, index) => {
+    setClickedElementIndex(index)
+    navigate(getSidebarRouteByLabel(label))
+  }
+
   return (
     <>
       {!isLoading && (
         <aside className="h-screen w-max">
+          {/* overflow-y-auto ile uzunluğu değişen ekranlarda navbar için scroll çıkarak taşma engellendi */}
           <nav
-            style={{ backgroundColor: "#EF4444" }}
-            className={`h-full w-max flex flex-col items-start bg-white border border-solid border-[#64748b] shadow-lg 
+            style={{ backgroundColor: "#EF4444", scrollbarWidth:"thin" }}
+            className={`overflow-y-auto h-full w-max flex flex-col items-start bg-white border border-solid border-[#64748b] shadow-lg 
           ${!isExpanded && "absolute"}
           md:static lg:static`}
           >
@@ -123,13 +133,13 @@ const Sidebar = () => {
             </div>
             <hr className="border border-solid border-1 w-full mt-4 mb-0" />
             <ul id="sidebar-elements-container" className="flex-1 py-3 w-full">
-              {sidebarElements.map((item) => (
+              {sidebarElements.map((item, index) => (
                 <>
                   <li
                     style={{ cursor: "pointer" }}
-                    className="flex p-3 px-5 items-center mx-2 rounded-xl mt-2 hover:bg-black
-                    md:mt-4 lg:mt-6"
-                    onClick={() => navigate(getSidebarRouteByLabel(item.label))}
+                    className={`flex p-3 px-5 items-center mx-2 rounded-xl mt-2 hover:bg-black
+                    md:mt-4 lg:mt-6 ${index === clickedElementIndex && "bg-black" }`}
+                    onClick={() => handleClickedSidebarElement(item.label, index)}
                   >
                     <span>{getSidebarIconsByLabel(item.label)}</span>
                     <span
