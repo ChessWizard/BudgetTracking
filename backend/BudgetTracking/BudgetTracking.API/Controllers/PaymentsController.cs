@@ -1,4 +1,5 @@
 ﻿using BudgetTracking.Common.Controller;
+using BudgetTracking.Core.Enums;
 using BudgetTracking.Service.Services.PaymentAccountEntity.Commands.CreatePaymentAccount;
 using BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPaymentAccounts;
 using MediatR;
@@ -21,9 +22,9 @@ namespace BudgetTracking.API.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetAllPaymentAccounts()
+        public async Task<IActionResult> GetAllPaymentAccounts([FromQuery] PaymentType? paymentType)
         {
-            var result = await _mediator.Send(new GetAllPaymentAccountsQuery());
+            var result = await _mediator.Send(new GetAllPaymentAccountsQuery { PaymentType = paymentType });
             return FromResult(result);
         }
 

@@ -71,7 +71,7 @@ const Expense = () => {
 
   return (
     <>
-      {!isLoading && (
+      
         <>
           <div
             id="expense-container"
@@ -86,7 +86,7 @@ const Expense = () => {
                 handleProcessed={handleProcessed}
               />
             )}
-            <div className="flex justify-center items-center">
+            {!isLoading && (<div className="flex justify-center items-center">
               <div
                 id="navigate-to-report"
                 className="flex p-3 bg-[#4CAF50] mb-5 text-white font-semibold text-base rounded md:text-lg lg:text-lg"
@@ -96,8 +96,8 @@ const Expense = () => {
                 <FaDownload size={"20"} />
                 <span className="mx-3">Rapor</span>
               </div>
-            </div>
-            <ExpenseProcesses data={expenseData} />
+            </div>) }
+            {!isLoading && (<ExpenseProcesses data={expenseData} /> ) }
             <div id="process-btn-group" className="absolute bottom-10 right-10">
               {/* sağ ve aşağı hizalama */}
               <div
@@ -124,7 +124,6 @@ const Expense = () => {
             </div>
           </div>
         </>
-      )}
     </>
   );
 };

@@ -27,6 +27,7 @@ const Category = () => {
         }
       )
       .then((response) => {
+        setCategoryError(false)
         setData(response.data.data);
       })
       .catch((error) => {
@@ -90,6 +91,7 @@ const Category = () => {
             id="categories-by-expense-container"
             className="p-2 bg-[white] md:p-3 lg:p-4"
           >
+          {hasCategoryError && (<div>Kategori bulunamadı...</div>)}
             {!loading &&
               !hasCategoryError &&
               data.categories.map((category) => (

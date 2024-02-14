@@ -1,4 +1,5 @@
 ﻿using BudgetTracking.Common.Result;
+using BudgetTracking.Core.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,6 @@ namespace BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPay
 {
     public class GetAllPaymentAccountsQuery : IRequest<Result<GetAllPaymentAccountsQueryResult>>
     {
+        public PaymentType? PaymentType { get; set; }
     }
 }

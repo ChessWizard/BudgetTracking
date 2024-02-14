@@ -79,6 +79,14 @@ const ProcessModal = (props) => {
     setValue("categoryId", selectedCategoryId);
   };
 
+  const handleCurrencyChange = (selectedCurrency) => {
+    setValue("currencyCode", selectedCurrency)
+  }
+
+  const handlePaymentChange = (selectedPayment) => {
+    setValue("paymentAccountId", selectedPayment)
+  }
+
   const createExpenseByUser = (data) => {
     // TimeOnly tipinden dolayı saniye eklemeliyiz
     data.processTime = data.processTime + ":00";
@@ -113,6 +121,7 @@ const ProcessModal = (props) => {
       )
       .then((response) => {
         console.log(response.data.data);
+        setCategoryError(false)
         setData(response.data.data);
       })
       .catch((error) => {
@@ -132,6 +141,7 @@ const ProcessModal = (props) => {
         },
       })
       .then((response) => {
+        setPaymentError(false)
         setUserPaymentAccounts(response.data.data);
       })
       .catch((error) => {
@@ -203,7 +213,7 @@ const ProcessModal = (props) => {
                     <>
                       <select
                         {...field}
-                        onChange={(e) => handleCategoryChange(e.target.value)}
+                        onChange={(e) => handlePaymentChange(e.target.value)}
                         className="mb-3 p-2 ml-1 w-full border border-black rounded md:h-1/2 lg:1/2 md:mb-0 lg:mb-0
                 md:ml-2 lg:ml-2"
                         {...register("paymentAccountId")}
@@ -253,7 +263,7 @@ const ProcessModal = (props) => {
                     <>
                       <select
                         {...field}
-                        onChange={(e) => handleCategoryChange(e.target.value)}
+                        onChange={(e) => handleCurrencyChange(e.target.value)}
                         className="col-span-2 border border-black rounded p-1.5 pl-2 ml-2 mb-3"
                         {...register("currencyCode")}
                       >

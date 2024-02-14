@@ -27,7 +27,12 @@ namespace BudgetTracking.Service.Services.PaymentAccountEntity.Queries.GetAllPay
 
         public async Task<Result<GetAllPaymentAccountsQueryResult>> Handle(GetAllPaymentAccountsQuery request, CancellationToken cancellationToken)
         {
-            var paymentsByUser = await _paymentAccountRepository.GetAllPaymentAccountsByUser(_contextAccessor.UserId)
+            var query = _paymentAccountRepository.GetAllPaymentAccountsByUser(_contextAccessor.UserId);
+
+            if (request.PaymentType.HasValue)
+                query = query.Where(x => x.PaymentType == request.PaymentType.Value);
+
+            var paymentsByUser = await query
                 .Select(x => new PaymentModel
                 {
                     Id = x.Id,

@@ -70,7 +70,7 @@ const getSidebarRouteByLabel = (label) => {
     case "İşlemler":
       return "/dashboard/expense"
     case "Hesaplar":
-      return ""
+      return "/dashboard/payment"
     case "Planlanmış Ödemeler":
       return ""
     case "Bütçeler":
