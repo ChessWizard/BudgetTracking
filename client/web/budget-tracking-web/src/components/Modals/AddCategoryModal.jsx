@@ -48,7 +48,7 @@ const AddCategoryModal = (props) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      expenseType: props.categoryType,
+      expenseType: "",
       title: "",
       imageUrl: "",
     },
@@ -76,6 +76,10 @@ const AddCategoryModal = (props) => {
 
   const accessToken = useSelector(selectCurrentToken);
   const createCategoryByUser = (data) => {
+
+    // expenseType'ın props üzerinden atanması
+    data.expenseType = props.categoryType
+
     axios
       .post("https://budgettracking77.azurewebsites.net/api/Categories", data, {
         headers: {
