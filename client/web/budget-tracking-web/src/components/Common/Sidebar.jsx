@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { LuChevronFirst, LuChevronLast } from "react-icons/lu";
-import { getSidebarIconsByLabel, getSidebarRouteByLabel } from "../../helpers/IconHelper";
+import {
+  getSidebarIconsByLabel,
+  getSidebarRouteByLabel,
+} from "../../helpers/IconHelper";
 import { MdLogout } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import axios from "axios";
@@ -13,15 +16,16 @@ import {
   selectCurrentToken,
 } from "../../features/auth/authSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isExpanded, setExpanded] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [fullName, setFullName] = useState("İsimsiz Kullanıcı");
   const [isLoading, setLoading] = useState(true);
-  const [clickedElementIndex, setClickedElementIndex] = useState(0)
-  const navigate = useNavigate()
+  const [clickedElementIndex, setClickedElementIndex] = useState(0);
+  const location = useLocation(); // mevcut url bilgisini verir
+  const navigate = useNavigate();
 
   const sidebarElements = [
     {
@@ -46,8 +50,8 @@ const Sidebar = () => {
       label: "Takvim",
     },
     {
-      label: "Kategori Yönetimi"
-    }
+      label: "Kategori Yönetimi",
+    },
   ];
 
   const accessToken = useSelector(selectCurrentToken);
@@ -74,8 +78,8 @@ const Sidebar = () => {
       })
       // herhangi bir süreye bağımlı olmadan response döndüğünde loading false olsun
       .finally(() => {
-        setLoading(false)
-      })
+        setLoading(false);
+      });
   };
 
   const dispatch = useDispatch();
@@ -91,10 +95,51 @@ const Sidebar = () => {
     getUserDetails();
   }, []);
 
+  // url değiştikçe seçili sidebar elementi de url ile uyumlu değişsin
+  const handleSelectedSidebarElement = () => {
+    var selectedProcess = location.pathname.split("/")[2];
+    console.log("Selected process:" + selectedProcess);
+    switch (selectedProcess) {
+      case undefined:
+        setClickedElementIndex(0);
+        break;
+      case "expense":
+        setClickedElementIndex(1);
+        break;
+      case "payment":
+        setClickedElementIndex(2);
+        break;
+      case "planned":
+        setClickedElementIndex(3);
+        break;
+      case "budget":
+        setClickedElementIndex(4);
+        break;
+      case "chart":
+        setClickedElementIndex(5);
+        break;
+      case "calendar":
+        setClickedElementIndex(6);
+        break;
+      case "category":
+        setClickedElementIndex(7);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  // gidilen process path'de değiştikçe seçili element de değişsin
+  // NOT:url üzerinden setlenme sebebi, sayfa refresh de edilse route sabit kalacağından
+  // seçili element efekti kalıcı kalması içindir
+  useEffect(() => {
+    handleSelectedSidebarElement();
+  }, [location.pathname]);
+
   const handleClickedSidebarElement = (label, index) => {
-    setClickedElementIndex(index)
-    navigate(getSidebarRouteByLabel(label))
-  }
+    navigate(getSidebarRouteByLabel(label));
+  };
 
   return (
     <>
@@ -102,7 +147,7 @@ const Sidebar = () => {
         <aside className="h-screen w-max">
           {/* overflow-y-auto ile uzunluğu değişen ekranlarda navbar için scroll çıkarak taşma engellendi */}
           <nav
-            style={{ backgroundColor: "#EF4444", scrollbarWidth:"thin" }}
+            style={{ backgroundColor: "#EF4444", scrollbarWidth: "thin" }}
             className={`overflow-y-auto h-full w-max flex flex-col items-start bg-white border border-solid border-[#64748b] shadow-lg 
           ${!isExpanded && "absolute"}
           md:static lg:static`}
@@ -138,8 +183,12 @@ const Sidebar = () => {
                   <li
                     style={{ cursor: "pointer" }}
                     className={`flex p-3 px-5 items-center mx-2 rounded-xl mt-2 hover:bg-black
-                    md:mt-4 lg:mt-6 ${index === clickedElementIndex && "bg-black" }`}
-                    onClick={() => handleClickedSidebarElement(item.label, index)}
+                    md:mt-4 lg:mt-6 ${
+                      index === clickedElementIndex && "bg-black"
+                    }`}
+                    onClick={() =>
+                      handleClickedSidebarElement(item.label, index)
+                    }
                   >
                     <span>{getSidebarIconsByLabel(item.label)}</span>
                     <span

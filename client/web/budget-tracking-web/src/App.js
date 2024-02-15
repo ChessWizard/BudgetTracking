@@ -11,6 +11,10 @@ import RequireAuth from "./components/Common/RequireAuth";
 import ExpenseReport from "./pages/ExpenseReport";
 import Category from "./pages/Category";
 import PaymentAccount from "./pages/PaymentAccount";
+import Calendar from "./pages/Calendar";
+import Chart from "./pages/Chart";
+import Budget from "./pages/Budget";
+import Planned from "./pages/Planned";
 
 function App() {
   return (
@@ -26,9 +30,13 @@ function App() {
           {/* Sidebar Layout Screens Start */}
           <Route path="/dashboard" element={<RequireAuth><SidebarLayout /></RequireAuth>}>{/* dashboard uzantısına sahip her yerde sidebar çıkar */}
             <Route index path="/dashboard/expense" element={<RequireAuth><Expense /></RequireAuth>}/>
-            <Route path="/dashboard/account" element={<RequireAuth><Profile /></RequireAuth>} />
-            <Route path="/dashboard/category" element={<RequireAuth><Category /></RequireAuth>} />
             <Route path="/dashboard/payment" element={<RequireAuth><PaymentAccount /></RequireAuth>} />
+            <Route path="/dashboard/planned" element={<RequireAuth><Planned /></RequireAuth>} />
+            <Route path="/dashboard/budget" element={<RequireAuth><Budget /></RequireAuth>} />
+            <Route path="/dashboard/chart" element={<RequireAuth><Chart /></RequireAuth>} />
+            <Route path="/dashboard/calendar" element={<RequireAuth><Calendar /></RequireAuth>} />
+            <Route path="/dashboard/category" element={<RequireAuth><Category /></RequireAuth>} />
+            <Route path="/dashboard/account" element={<RequireAuth><Profile /></RequireAuth>} />
             <Route path="/dashboard/report/transaction" element={<RequireAuth><ExpenseReport /></RequireAuth>} />
           </Route>
           {/* Sidebar Layout Screens End */}

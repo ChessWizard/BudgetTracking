@@ -72,11 +72,11 @@ const getSidebarRouteByLabel = (label) => {
     case "Hesaplar":
       return "/dashboard/payment"
     case "Planlanmış Ödemeler":
-      return ""
+      return "/dashboard/planned"
     case "Bütçeler":
-      return ""
+      return "/dashboard/budget"
     case "Grafikler":
-      return ""
+      return "/dashboard/chart"
     case "Takvim":
       return "/dashboard/calendar"
     case "Kategori Yönetimi":
