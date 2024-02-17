@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetTracking.Core", "BudgetTracking.Core\BudgetTracking.Core.csproj", "{D15BF516-13CE-4BFE-8ACE-11EF0B5FBA85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracking.Core", "BudgetTracking.Core\BudgetTracking.Core.csproj", "{D15BF516-13CE-4BFE-8ACE-11EF0B5FBA85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetTracking.Data", "BudgetTracking.Data\BudgetTracking.Data.csproj", "{3DD5A336-C4F0-4634-A6D9-C83A786E7989}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracking.Data", "BudgetTracking.Data\BudgetTracking.Data.csproj", "{3DD5A336-C4F0-4634-A6D9-C83A786E7989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetTracking.Service", "BudgetTracking.Service\BudgetTracking.Service.csproj", "{4A2AE445-DB9A-4032-9550-BA137130F5C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracking.Service", "BudgetTracking.Service\BudgetTracking.Service.csproj", "{4A2AE445-DB9A-4032-9550-BA137130F5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetTracking.API", "BudgetTracking.API\BudgetTracking.API.csproj", "{CB98E480-B56F-4BB6-81EE-3EA132AF848A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracking.API", "BudgetTracking.API\BudgetTracking.API.csproj", "{CB98E480-B56F-4BB6-81EE-3EA132AF848A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetTracking.Common", "BudgetTracking.Common\BudgetTracking.Common.csproj", "{55592DA9-5B0A-428B-BBA5-4A9B3207FBF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracking.Common", "BudgetTracking.Common\BudgetTracking.Common.csproj", "{55592DA9-5B0A-428B-BBA5-4A9B3207FBF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetTracking.UnitTest", "BudgetTracking.UnitTest\BudgetTracking.UnitTest.csproj", "{9C32B900-DEF1-4145-B165-8AA00E80235D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{55592DA9-5B0A-428B-BBA5-4A9B3207FBF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55592DA9-5B0A-428B-BBA5-4A9B3207FBF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55592DA9-5B0A-428B-BBA5-4A9B3207FBF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C32B900-DEF1-4145-B165-8AA00E80235D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C32B900-DEF1-4145-B165-8AA00E80235D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C32B900-DEF1-4145-B165-8AA00E80235D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C32B900-DEF1-4145-B165-8AA00E80235D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

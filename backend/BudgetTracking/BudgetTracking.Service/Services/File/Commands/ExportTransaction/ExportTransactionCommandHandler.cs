@@ -44,15 +44,13 @@ namespace BudgetTracking.Service.Services.File.Commands.ExportTransaction
             { 
                 ExportFileType = request.ExportFileType, 
                 ExportableData = mappedForExcel, 
-                ExportableDataClassName = $"BudgetTracking.Data.Dto.{nameof(ExportTransactionDto)}"//nameof ile vermek en güvenlisidir, tüm namespace verilmelidir
+                ExportableDataClassName = $"BudgetTracking.Data.Dto.{nameof(ExportTransactionDto)}"
             });
             return result;
         }
 
         private static Expression<Func<Expense, bool>> GetTransactionWherePredicate(ExportTransactionCommand request)
         {
-            // Başlangıçta tüm kayıtları seçen bir koşul oluşturur (her zaman true döner).
-            // hiçbir koşula girilmezse tüm kayıtlar getirilmiş olur
             Expression<Func<Expense, bool>> predicate = expense => true;
 
             if (request.PaymentAccountId.HasValue)
